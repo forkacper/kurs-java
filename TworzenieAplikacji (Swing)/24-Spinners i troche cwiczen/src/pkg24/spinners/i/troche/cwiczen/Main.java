@@ -19,7 +19,7 @@ public class Main extends JFrame {
     
         String [] miesiace = new DateFormatSymbols().getMonths();
         
-        MySpinnerListModel modelMiesiecy = new MySpinnerListModel(miesiace);
+        MySpinnerListModel modelMiesiecy = new MySpinnerListModel(obetnijArray(miesiace, 0, 11));
         JSpinner spinner = new JSpinner(modelMiesiecy);
 //        spinner.setEditor(new JTextArea("lala"));
         
@@ -57,8 +57,44 @@ public class Main extends JFrame {
             firstValue = values[0];
             lastValue = values[values.length-1];
         }
+    
+        @Override
+        public Object getNextValue() {
+            if(super.getNextValue() == null)
+                return firstValue;
+            else        
+                return super.getNextValue();
+        }
+        
+        @Override
+        public Object getPreviousValue() {
+            if(super.getNextValue() == null)
+                return lastValue;
+            else        
+                return super.getPreviousValue();
+        }
         
         Object firstValue, lastValue;
+    }
+    /**
+     * obcina tablice od <code> poczatek </code> do <code> koniec </code>
+     * @param operowany tablica, która będzie operowana
+     * @param poczatek indeks od kąd zacząć obcinanie
+     * @param koniec indeks gdzie zakończyć obcinanie
+     * @return zwraca obcięta tablicę (tmp)
+     */
+    private Object[] obetnijArray(Object[] operowany, int poczatek, int koniec) {
+        
+        koniec = koniec > operowany.length-1 || koniec < 0 ? operowany.length-1 : koniec;
+        poczatek = poczatek < 0 || poczatek  > koniec ? 0 : poczatek;
+        
+        Object[] tmp = new Object[koniec+1-poczatek]; 
+        
+        for(int i = poczatek, j = 0; i < koniec+1; i++, j++) {
+            tmp[j] = operowany[i];
+        }
+        
+        return tmp;
     }
     
     public static void main(String[] args) {

@@ -34,7 +34,7 @@ public class PaneleDzielone extends JFrame {
         JSplitPane podzielenieGlowne = new JSplitPane(JSplitPane.VERTICAL_SPLIT, podzielenie, panelOpisu);
         
         
-        this.getContentPane().add(podzielenie);
+        this.getContentPane().add(podzielenieGlowne);
         this.setDefaultCloseOperation(3);
     }
     JPanel panelListy = new JPanel();
